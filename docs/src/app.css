@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-neutral-950 text-neutral-200;
+  }
+  
+  h1 {
+    @apply text-4xl font-bold bg-gradient-to-r from-gsap-green to-green-600 bg-clip-text text-transparent;
+  }
+  
+  h2 {
+    @apply text-3xl font-semibold text-white border-b border-neutral-800 pb-2 mt-8 mb-4;
+  }
+  
+  h3 {
+    @apply text-2xl font-medium text-neutral-100 mt-6 mb-3;
+  }
+  
+  p {
+    @apply leading-relaxed text-neutral-300 my-4;
+  }
+  
+  a {
+    @apply text-gsap-green hover:underline;
+  }
+  
+  code {
+    @apply bg-neutral-900 px-1.5 py-0.5 rounded text-sm text-gsap-green font-mono;
+  }
+  
+  pre {
+    @apply bg-neutral-900 border border-neutral-800 rounded-lg p-6 overflow-x-auto my-6;
+  }
+  
+  pre code {
+    @apply bg-transparent p-0;
+  }
+  
+  ul, ol {
+    @apply leading-relaxed my-4 pl-8 text-neutral-300;
+  }
+  
+  li {
+    @apply my-2;
+  }
+}
