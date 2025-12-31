@@ -18,7 +18,9 @@ npm install @gsap/svelte gsap
 
 ## Basic Usage
 
-The simplest way to use @gsap/svelte is with the `gsapAnimate` action:
+@gsap/svelte provides two ways to animate: **Actions** and **Components**.
+
+### Using Actions
 
 ```svelte
 <script>
@@ -34,6 +36,20 @@ The simplest way to use @gsap/svelte is with the `gsapAnimate` action:
   This element animates on mount!
 </div>
 ```
+
+### Using Components
+
+```svelte
+<script>
+  import { GsapAnimate } from '@gsap/svelte';
+</script>
+
+<GsapAnimate type="from" opacity={0} y={50} duration={1}>
+  <div>This element animates on mount!</div>
+</GsapAnimate>
+```
+
+Both approaches provide the same functionality - choose what fits your style!
 
 ## Animation Types
 

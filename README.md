@@ -32,6 +32,8 @@ yarn add @gsap/svelte gsap
 
 ## Quick Start
 
+### Using Actions
+
 ```svelte
 <script>
   import { gsapAnimate } from '@gsap/svelte';
@@ -46,6 +48,56 @@ yarn add @gsap/svelte gsap
 }}>
   I fade and slide in!
 </div>
+```
+
+### Using Components
+
+```svelte
+<script>
+  import { GsapAnimate } from '@gsap/svelte';
+</script>
+
+<GsapAnimate type="from" opacity={0} y={50} duration={1} ease="power2.out">
+  <div>I fade and slide in!</div>
+</GsapAnimate>
+```
+
+## Component Wrappers
+
+All actions have component wrappers for a more declarative API:
+
+```svelte
+<script>
+  import { GsapAnimate, GsapFade, GsapSlide, GsapScale } from '@gsap/svelte';
+</script>
+
+<!-- Animate component -->
+<GsapAnimate type="from" opacity={0} x={-100} duration={1}>
+  <div>Animated content</div>
+</GsapAnimate>
+
+<!-- Fade component -->
+<GsapFade duration={1.5} delay={0.3}>
+  <span>Fades in</span>
+</GsapFade>
+
+<!-- Slide component -->
+<GsapSlide direction="left" distance={100}>
+  <section>Slides from left</section>
+</GsapSlide>
+
+<!-- Scale component -->
+<GsapScale from={0} duration={0.8}>
+  <article>Scales up</article>
+</GsapScale>
+```
+
+All components support an `element` prop to change the wrapper element:
+
+```svelte
+<GsapAnimate element="section" type="from" opacity={0}>
+  <h1>I'm wrapped in a section tag</h1>
+</GsapAnimate>
 ```
 
 ## Core Actions

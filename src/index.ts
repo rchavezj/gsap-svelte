@@ -21,6 +21,9 @@ export {
   gsapScale,
 } from './actions';
 
+// Components are exported from dist/components/*.svelte
+// Import them directly: import { GsapAnimate } from '@gsap/svelte/components/GsapAnimate.svelte'
+
 // Timeline utilities
 export {
   createTimeline,
