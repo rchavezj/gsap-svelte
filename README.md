@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 # @gsap/svelte
 
-Official Svelte integration for [GSAP](https://gsap.com) (GreenSock Animation Platform) with automatic cleanup, full TypeScript support, and seamless ScrollTrigger integration.
+Unofficial Svelte integration for [GSAP](https://gsap.com) (GreenSock Animation Platform) with automatic cleanup, full TypeScript support, and seamless ScrollTrigger integration.
 
 ## Features
 
@@ -14,6 +13,10 @@ Official Svelte integration for [GSAP](https://gsap.com) (GreenSock Animation Pl
 🔄 **SSR Safe** - Works with SvelteKit out of the box
 
 ## Installation
+
+```bash
+bun add -D @gsap/svelte gsap
+```
 
 ```bash
 npm install @gsap/svelte gsap
@@ -444,6 +447,3 @@ Powered by [GSAP](https://gsap.com) by GreenSock.
 - [GSAP Forums](https://gsap.com/community/)
 - [GitHub Issues](https://github.com/yourusername/gsap-svelte/issues)
 - [Documentation](https://github.com/yourusername/gsap-svelte#readme)
-=======
-# gsap-svelte
->>>>>>> cf68868e4b5cc8ed06593b84832e5db5059589ed
