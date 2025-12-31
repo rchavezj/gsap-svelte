@@ -1,7 +1,7 @@
 {
   "name": "@gsap/svelte",
   "version": "1.0.0",
-  "description": "Official Svelte integration for GSAP animations with automatic cleanup and TypeScript support",
+  "description": "Unofficial Svelte integration for GSAP animations with automatic cleanup and TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
