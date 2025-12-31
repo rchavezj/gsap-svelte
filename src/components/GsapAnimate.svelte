@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { gsapAnimate } from '../actions';
-	import type { GSAPAnimateOptions } from '../types';
-
-	type ElementType = 'div' | 'span' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'aside' | 'nav';
+	import type { GSAPAnimateOptions, ElementType } from '../types';
 
 	export let element: ElementType = 'div';
 	export let type: 'to' | 'from' | 'fromTo' = 'from';

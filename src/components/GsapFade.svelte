@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { gsapFade } from '../actions';
-
-	type ElementType = 'div' | 'span' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'aside' | 'nav';
+	import type { ElementType } from '../types';
 
 	export let element: ElementType = 'div';
 	export let duration: number = 1;

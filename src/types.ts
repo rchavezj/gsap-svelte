@@ -8,6 +8,14 @@ import type { Action } from 'svelte/action';
 export type AnimationType = 'to' | 'from' | 'fromTo';
 
 /**
+ * HTML Element types supported
+ */
+export type ElementType = 'div' | 'span' | 'section' | 'article' | 
+  'header' | 'footer' | 'main' | 'aside' | 'nav'
+;
+
+
+/**
  * Options for the gsapAnimate action
  */
 export interface GSAPAnimateOptions extends Omit<GSAPTweenVars, 'scrollTrigger'> {
