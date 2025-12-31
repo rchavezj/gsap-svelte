@@ -302,6 +302,6 @@ Then link it to The Forest Church and start animating! 🚀
 ---
 
 **Created**: December 31, 2025
-**Author**: Roberto Hernandez
+**Author**: Roberto Chavez
 **License**: MIT
 **Version**: 1.0.0 (initial)

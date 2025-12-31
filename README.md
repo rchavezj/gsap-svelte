@@ -433,7 +433,7 @@ Contributions are welcome! Please read our contributing guidelines.
 
 ## License
 
-MIT © Roberto Hernandez
+MIT © Roberto Chavez
 
 GSAP is licensed by GreenSock. See [GSAP licensing](https://gsap.com/licensing/).
 

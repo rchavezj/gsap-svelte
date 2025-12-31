@@ -4,7 +4,7 @@
  * Official Svelte integration for GSAP animations
  * Provides automatic cleanup, TypeScript support, and ScrollTrigger integration
  * 
- * @author Roberto Hernandez
+ * @author Roberto Chavez
  * @license MIT
  */
 
