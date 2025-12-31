@@ -18,24 +18,7 @@ npm install @gsap/svelte gsap
 
 ## Basic Usage
 
-@gsap/svelte provides two ways to animate: **Actions** and **Components**.
-
-### Using Actions
-
-```svelte
-<script>
-  import { gsapAnimate } from '@gsap/svelte';
-</script>
-
-<div use:gsapAnimate={{
-  type: 'from',
-  opacity: 0,
-  y: 50,
-  duration: 1
-}}>
-  This element animates on mount!
-</div>
-```
+@gsap/svelte provides clean, composable Svelte components for animations.
 
 ### Using Components
 
@@ -49,8 +32,6 @@ npm install @gsap/svelte gsap
 </GsapAnimate>
 ```
 
-Both approaches provide the same functionality - choose what fits your style!
-
 ## Animation Types
 
 @gsap/svelte supports three animation types:
@@ -58,41 +39,31 @@ Both approaches provide the same functionality - choose what fits your style!
 ### 1. `to` - Animate TO values
 
 ```svelte
-<div use:gsapAnimate={{
-  type: 'to',
-  x: 100,
-  rotation: 360,
-  duration: 2
-}}>
-  Animates to these values
-</div>
+<GsapAnimate type="to" x={100} rotation={360} duration={2}>
+  <div>Animates to these values</div>
+</GsapAnimate>
 ```
 
 ### 2. `from` - Animate FROM values
 
 ```svelte
-<div use:gsapAnimate={{
-  type: 'from',
-  opacity: 0,
-  scale: 0.5,
-  duration: 1
-}}>
-  Animates from these values to current
-</div>
+<GsapAnimate type="from" opacity={0} scale={0.5} duration={1}>
+  <div>Animates from these values to current</div>
+</GsapAnimate>
 ```
 
 ### 3. `fromTo` - Animate FROM and TO
 
 ```svelte
-<div use:gsapAnimate={{
-  type: 'fromTo',
-  fromVars: { x: -100, opacity: 0 },
-  x: 0,
-  opacity: 1,
-  duration: 1.5
-}}>
-  Animates from and to specific values
-</div>
+<GsapAnimate
+  type="fromTo"
+  fromVars={{ x: -100, opacity: 0 }}
+  x={0}
+  opacity={1}
+  duration={1.5}
+>
+  <div>Animates from and to specific values</div>
+</GsapAnimate>
 ```
 
 ## With ScrollTrigger
@@ -101,25 +72,25 @@ Add scroll-based animations easily:
 
 ```svelte
 <script>
-  import { gsapAnimate } from '@gsap/svelte';
+  import { GsapAnimate } from '@gsap/svelte';
 </script>
 
-<div use:gsapAnimate={{
-  type: 'from',
-  opacity: 0,
-  y: 100,
-  duration: 1,
-  scrollTrigger: {
+<GsapAnimate
+  type="from"
+  opacity={0}
+  y={100}
+  duration={1}
+  scrollTrigger={{
     start: 'top 80%',
     toggleActions: 'play none none reverse'
-  }
-}}>
-  Animates when scrolled into view
-</div>
+  }}
+>
+  <div>Animates when scrolled into view</div>
+</GsapAnimate>
 ```
 
 ## Next Steps
 
-- Learn about all available [Actions](/docs/actions)
-- Explore [Timeline](/docs/timeline) utilities
+- Explore available animation components
+- Learn about [Timeline](/docs/timeline) utilities
 - Check out [Examples](/docs/examples)

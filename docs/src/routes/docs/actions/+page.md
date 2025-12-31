@@ -1,27 +1,21 @@
-# Actions
+# Components
 
-@gsap/svelte provides Svelte actions for easy, declarative animations with automatic cleanup.
+@gsap/svelte provides clean, composable Svelte components for easy animations with automatic cleanup.
 
-## gsapAnimate
+## GsapAnimate
 
-The main animation action with full GSAP capabilities.
+The main animation component with full GSAP capabilities.
 
 ### Basic Usage
 
 ```svelte
 <script>
-  import { gsapAnimate } from '@gsap/svelte';
+  import { GsapAnimate } from '@gsap/svelte';
 </script>
 
-<div use:gsapAnimate={{
-  type: 'from',
-  opacity: 0,
-  y: 50,
-  duration: 1,
-  ease: 'power2.out'
-}}>
-  Animated element
-</div>
+<GsapAnimate type="from" opacity={0} y={50} duration={1} ease="power2.out">
+  <div>Animated element</div>
+</GsapAnimate>
 ```
 
 ### Options
@@ -32,64 +26,64 @@ The main animation action with full GSAP capabilities.
 - `fromVars`: Starting values for `'fromTo'` animations
 - `disabled`: Conditionally disable the animation
 
-## gsapFade
+## GsapFade
 
-Convenience action for fade animations.
+Convenience component for fade animations.
 
 ```svelte
 <script>
-  import { gsapFade } from '@gsap/svelte';
+  import { GsapFade } from '@gsap/svelte';
 </script>
 
-<div use:gsapFade={{ duration: 1, delay: 0.5 }}>
-  Fades in on mount
-</div>
+<GsapFade duration={1} delay={0.5}>
+  <div>Fades in on mount</div>
+</GsapFade>
 ```
 
-## gsapSlide
+## GsapSlide
 
 Slide animations from different directions.
 
 ```svelte
 <script>
-  import { gsapSlide } from '@gsap/svelte';
+  import { GsapSlide } from '@gsap/svelte';
 </script>
 
 <!-- Slide from left -->
-<div use:gsapSlide={{ direction: 'left', distance: 100 }}>
-  Slides from left
-</div>
+<GsapSlide direction="left" distance={100}>
+  <div>Slides from left</div>
+</GsapSlide>
 
 <!-- Slide from top -->
-<div use:gsapSlide={{ direction: 'up', distance: 50, duration: 1 }}>
-  Slides from top
-</div>
+<GsapSlide direction="up" distance={50} duration={1}>
+  <div>Slides from top</div>
+</GsapSlide>
 ```
 
 Available directions: `'up'`, `'down'`, `'left'`, `'right'`
 
-## gsapScale
+## GsapScale
 
 Scale animations.
 
 ```svelte
 <script>
-  import { gsapScale } from '@gsap/svelte';
+  import { GsapScale } from '@gsap/svelte';
 </script>
 
-<div use:gsapScale={{ from: 0, duration: 0.5 }}>
-  Scales up from 0
-</div>
+<GsapScale from={0} duration={0.5}>
+  <div>Scales up from 0</div>
+</GsapScale>
 ```
 
 ## Dynamic Updates
 
-Actions can be updated reactively:
+Components can be updated reactively:
 
 ```svelte
 <script>
-  import { gsapAnimate } from '@gsap/svelte';
-  
+  import { GsapAnimate } from '@gsap/svelte';
+
   let distance = 100;
   let animationEnabled = true;
 </script>
@@ -100,31 +94,27 @@ Actions can be updated reactively:
   Enable Animation
 </label>
 
-<div use:gsapAnimate={{
-  type: 'from',
-  x: distance,
-  disabled: !animationEnabled
-}}>
-  Interactive Animation
-</div>
+<GsapAnimate type="from" x={distance} disabled={!animationEnabled}>
+  <div>Interactive Animation</div>
+</GsapAnimate>
 ```
 
 ## With ScrollTrigger
 
-All actions support ScrollTrigger:
+All components support ScrollTrigger:
 
 ```svelte
-<div use:gsapAnimate={{
-  type: 'from',
-  opacity: 0,
-  y: 100,
-  scrollTrigger: {
+<GsapAnimate
+  type="from"
+  opacity={0}
+  y={100}
+  scrollTrigger={{
     start: 'top 80%',
     end: 'top 20%',
     toggleActions: 'play none none reverse',
     markers: true  // Remove in production
-  }
-}}>
-  Animates on scroll
-</div>
+  }}
+>
+  <div>Animates on scroll</div>
+</GsapAnimate>
 ```
