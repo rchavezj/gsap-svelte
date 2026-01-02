@@ -2,33 +2,54 @@
 	import { gsap } from '@gsap/svelte';
 	import { gsapDraggable } from '@gsap/svelte';
 
-	let ballElement: HTMLDivElement;
-	let gridContainer: HTMLDivElement;
+	let ballElement = $state<HTMLDivElement>();
+	let gridContainer = $state<HTMLDivElement>();
 	let isReady = $state(false);
 
+	// Snap function to center ball in each 100px cell
+	// Ball is 80px, so centered position is cell_index * 100 + 10
+	const snapToCenter = (value: number) => {
+		const cellIndex = Math.round(value / 100);
+		return cellIndex * 100 + 10;
+	};
+
 	// Reactive draggable options - recreated when gridContainer changes
-	let draggableOptions = $derived({
-		type: 'x,y' as const,
-		bounds: gridContainer,
-		inertia: true,
-		snap: {
-			x: (value: number) => Math.round(value / 100) * 100,
-			y: (value: number) => Math.round(value / 100) * 100
-		},
-		onDragStart: function() {
-			gsap.to(ballElement, {
-				scale: 1.1,
-				duration: 0.2,
-				ease: 'power2.out'
-			});
-		},
-		onDragEnd: function() {
-			gsap.to(ballElement, {
-				scale: 1,
-				duration: 0.3,
-				ease: 'elastic.out(1, 0.5)'
-			});
+	let draggableOptions = $derived.by(() => {
+		if (!gridContainer) {
+			return { disabled: true };
 		}
+
+		return {
+			type: 'x,y' as const,
+			bounds: gridContainer,
+			inertia: true,
+			// snap: {
+			// 	x: snapToCenter,
+			// 	y: snapToCenter
+			// },
+			snap: {
+				x: (value: number) => Math.round(value / 100) * 100,
+				y: (value: number) => Math.round(value / 100) * 100 
+			},
+			onDragStart: function() {
+				if (ballElement) {
+					gsap.to(ballElement, {
+						scale: 1.1,
+						duration: 0.2,
+						ease: 'power2.out'
+					});
+				}
+			},
+			onDragEnd: function() {
+				if (ballElement) {
+					gsap.to(ballElement, {
+						scale: 1,
+						duration: 0.3,
+						ease: 'elastic.out(1, 0.5)'
+					});
+				}
+			}
+		};
 	});
 
 	$effect(() => {
