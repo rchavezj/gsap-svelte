@@ -4,6 +4,7 @@
 
 @layer base {
   body {
+    background-color: #000220;
     @apply bg-neutral-950 text-neutral-200;
   }
   
