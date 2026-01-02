@@ -164,10 +164,10 @@
 
 	.ball {
 		position: absolute;
-		width: 80px;
-		height: 80px;
-		top: 10px;
-		left: 10px;
+		width: 100px;
+		height: 100px;
+		top: 0px;
+		left: 0px;
 		border-radius: 50%;
 		background: linear-gradient(135deg, #5B50FF 0%, #8B7EFF 100%);
 		cursor: grab;
