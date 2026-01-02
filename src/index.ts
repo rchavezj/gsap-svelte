@@ -19,6 +19,7 @@ export {
   gsapFade,
   gsapSlide,
   gsapScale,
+  gsapDraggable,
 } from './actions';
 
 // Components are exported from dist/components/*.svelte
@@ -38,6 +39,8 @@ export type {
   AnimationType,
   GSAPAnimateOptions,
   GSAPAnimateAction,
+  GSAPDraggableOptions,
+  GSAPDraggableAction,
   GSAPContext,
   UseGSAPContextOptions,
   GSAPTimelineOptions,
