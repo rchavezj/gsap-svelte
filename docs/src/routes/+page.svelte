@@ -4,6 +4,7 @@
 	import GsapFade from '@gsap/svelte/components/GsapFade.svelte';
 	import GsapSlide from '@gsap/svelte/components/GsapSlide.svelte';
 	import GsapScale from '@gsap/svelte/components/GsapScale.svelte';
+	import DraggableGridDemo from '$lib/components/DraggableGridDemo.svelte';
 
 	const features = [
 		{
@@ -107,8 +108,8 @@
 			</div>
 
 
-			<div class="flex">
-				<div>
+			<div class="hero-grid">
+				<div class="hero-text">
 					<!-- Main Heading - Optimatia gradient text -->
 					<GsapSlide direction="up" distance={30} duration={1} delay={0.3}>
 						<h1 class="hero-heading">
@@ -152,22 +153,28 @@
 							</a>
 						</div>
 					</GsapSlide>
-				</div>
 
-
-				<!-- Code Example with enhanced Optimatia styling -->
-			<GsapScale from={0.9} duration={1} delay={0.9}>
-				<div class="code-showcase">
-					<div class="code-glow"></div>
-					<pre class="code-content"><code class="language-svelte">{`<script>
+					<!-- Code Example with enhanced Optimatia styling -->
+					<GsapScale from={0.9} duration={1} delay={0.9}>
+						<div class="code-showcase">
+							<div class="code-glow"></div>
+							<pre class="code-content"><code class="language-svelte">{`<script>
   import { GsapAnimate } from '@gsap/svelte';
 </script>
 
 <GsapAnimate type="from" opacity={0} y={50} duration={1}>
   <div>Beautiful animations in 2 lines!</div>
 </GsapAnimate>`}</code></pre>
+						</div>
+					</GsapScale>
 				</div>
-			</GsapScale>
+
+				<!-- Draggable Grid Demo -->
+				<div class="hero-demo">
+					<GsapFade duration={1} delay={1.1}>
+						<DraggableGridDemo />
+					</GsapFade>
+				</div>
 			</div>
 
 			
@@ -399,10 +406,40 @@
 	.hero-content {
 		position: relative;
 		z-index: 2;
-		max-width: 1024px;
+		max-width: 1280px;
 		width: 100%;
 		margin: 0 auto;
+		padding: 0 24px;
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 64px;
+		align-items: center;
+	}
+
+	@media (min-width: 1024px) {
+		.hero-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 80px;
+		}
+	}
+
+	.hero-text {
 		text-align: center;
+	}
+
+	@media (min-width: 1024px) {
+		.hero-text {
+			text-align: left;
+		}
+	}
+
+	.hero-demo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	/* Hero Badge - Optimatia glass-morphism */

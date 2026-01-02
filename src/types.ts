@@ -141,3 +141,58 @@ export interface GSAPBatchOptions extends GSAPAnimateOptions {
     amount?: number;
   };
 }
+
+/**
+ * Options for the gsapDraggable action
+ */
+export interface GSAPDraggableOptions {
+  /**
+   * Type of dragging ('x', 'y', 'x,y', or 'rotation')
+   */
+  type?: string;
+
+  /**
+   * Enable inertia for momentum-based dragging
+   */
+  inertia?: boolean;
+
+  /**
+   * Bounds to constrain dragging
+   */
+  bounds?: any;
+
+  /**
+   * Snap configuration
+   */
+  snap?: any;
+
+  /**
+   * Callback when drag starts
+   */
+  onDragStart?: () => void;
+
+  /**
+   * Callback during drag
+   */
+  onDrag?: () => void;
+
+  /**
+   * Callback when drag ends
+   */
+  onDragEnd?: () => void;
+
+  /**
+   * Disable the draggable
+   */
+  disabled?: boolean;
+
+  /**
+   * Additional GSAP Draggable options
+   */
+  [key: string]: any;
+}
+
+/**
+ * The GSAP draggable action type
+ */
+export type GSAPDraggableAction = Action<HTMLElement, GSAPDraggableOptions>;

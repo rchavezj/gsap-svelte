@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import type { GSAPAnimateAction, GSAPAnimateOptions } from './types';
+import type { GSAPAnimateAction, GSAPAnimateOptions, GSAPDraggableAction, GSAPDraggableOptions } from './types';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -181,10 +181,100 @@ export const gsapSlide: GSAPAnimateAction = (node, options = {}) => {
  */
 export const gsapScale: GSAPAnimateAction = (node, options = {}) => {
   const { from = 0, ...rest } = options as any;
-  
+
   return gsapAnimate(node, {
     type: 'from',
     scale: from,
     ...rest,
   });
+};
+
+/**
+ * Draggable action for making elements draggable with GSAP
+ *
+ * Supports inertia, bounds, snapping, and callbacks
+ *
+ * @example
+ * ```svelte
+ * <div use:gsapDraggable={{
+ *   type: 'x,y',
+ *   inertia: true,
+ *   bounds: '.container',
+ *   snap: { x: (value) => Math.round(value / 100) * 100 }
+ * }}>
+ *   Drag me!
+ * </div>
+ * ```
+ */
+// Local interface for Draggable instances to avoid GSAP type imports
+interface DraggableInstance {
+  kill(): void;
+  enable(): void;
+  disable(): void;
+}
+
+// Local interface for Draggable constructor
+interface DraggableConstructor {
+  create(target: HTMLElement, vars?: Record<string, unknown>): DraggableInstance[];
+}
+
+export const gsapDraggable: GSAPDraggableAction = (node, options = {}) => {
+  let draggableInstance: DraggableInstance[] | null = null;
+
+  /**
+   * Create or update the draggable instance
+   */
+  const createDraggable = async (opts: GSAPDraggableOptions) => {
+    // Cleanup previous instance
+    if (draggableInstance) {
+      draggableInstance.forEach(d => d.kill());
+      draggableInstance = null;
+    }
+
+    // Don't create draggable if disabled
+    if (opts.disabled) {
+      return;
+    }
+
+    // Remove disabled from options before passing to Draggable.create
+    const { disabled, ...draggableOpts } = opts;
+
+    try {
+      // Dynamically import Draggable and InertiaPlugin using dist path to avoid casing issues
+      const DraggableModule = await import('gsap/dist/Draggable');
+      const InertiaModule = await import('gsap/dist/InertiaPlugin');
+
+      const Draggable = DraggableModule.Draggable as unknown as DraggableConstructor;
+      const InertiaPlugin = InertiaModule.InertiaPlugin;
+
+      // Register plugins
+      gsap.registerPlugin(Draggable, InertiaPlugin);
+
+      draggableInstance = Draggable.create(node, draggableOpts);
+    } catch (error) {
+      console.error('[gsap-svelte] Error creating draggable:', error);
+    }
+  };
+
+  // Create initial draggable
+  createDraggable(options);
+
+  return {
+    /**
+     * Update draggable when options change
+     */
+    update(newOptions: GSAPDraggableOptions) {
+      createDraggable(newOptions);
+    },
+
+    /**
+     * Cleanup on element removal
+     */
+    destroy() {
+      if (draggableInstance) {
+        draggableInstance.forEach(d => d.kill());
+        draggableInstance = null;
+      }
+    }
+  };
 };
