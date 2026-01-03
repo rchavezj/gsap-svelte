@@ -196,3 +196,56 @@ export interface GSAPDraggableOptions {
  * The GSAP draggable action type
  */
 export type GSAPDraggableAction = Action<HTMLElement, GSAPDraggableOptions>;
+
+/**
+ * Options for the GSAPContainer component
+ */
+export interface GSAPContainerOptions {
+  /**
+   * Layout type for the container
+   * - 'grid': CSS Grid layout
+   * - 'flex': Flexbox layout
+   * - 'none': No specific layout (block)
+   */
+  layout?: 'grid' | 'flex' | 'none';
+
+  /**
+   * Number of grid columns (only applies when layout is 'grid')
+   */
+  gridCols?: number;
+
+  /**
+   * Number of grid rows (only applies when layout is 'grid')
+   */
+  gridRows?: number;
+
+  /**
+   * Gap between grid items or flex items
+   */
+  gap?: string;
+
+  /**
+   * Container width
+   */
+  width?: string;
+
+  /**
+   * Container height
+   */
+  height?: string;
+
+  /**
+   * HTML element type to use for the container
+   */
+  element?: ElementType;
+
+  /**
+   * CSS class name
+   */
+  class?: string;
+
+  /**
+   * Reference to the container element (for use as draggable bounds)
+   */
+  containerRef?: HTMLElement | undefined;
+}

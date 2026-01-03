@@ -1,17 +1,12 @@
 <script lang="ts">
-	import { gsap } from '@gsap/svelte';
 	import { gsapDraggable } from '@gsap/svelte';
+	import type { GSAPDraggableOptions } from '@gsap/svelte';
+	import GSAPContainer from '@gsap/svelte/components/GSAPContainer.svelte';
+	import GsapDraggable from '@gsap/svelte/components/GsapDraggable.svelte';
 
 	let ballElement = $state<HTMLDivElement>();
 	let gridContainer = $state<HTMLDivElement>();
 	let isReady = $state(false);
-
-	// Snap function to center ball in each 100px cell
-	// Ball is 80px, so centered position is cell_index * 100 + 10
-	const snapToCenter = (value: number) => {
-		const cellIndex = Math.round(value / 100);
-		return cellIndex * 100 + 10;
-	};
 
 	// Reactive draggable options - recreated when gridContainer changes
 	let draggableOptions = $derived.by(() => {
@@ -52,6 +47,14 @@
 		};
 	});
 
+	// Snap function to center ball in each 100px cell
+	// Ball is 80px, so centered position is cell_index * 100 + 10
+	const snapToCenter = (value: number) => {
+		const cellIndex = Math.round(value / 100);
+		return cellIndex * 100 + 10;
+	};
+
+
 	$effect(() => {
 		if (gridContainer) {
 			isReady = true;
@@ -66,13 +69,11 @@
 		<p class="demo-description">Drag the ball and watch it snap to the grid with physics-based inertia</p>
 	</div>
 
-	<div bind:this={gridContainer} class="grid-container">
-		<!-- Grid cells -->
+	<!-- <div bind:this={gridContainer} class="grid-container">
 		{#each Array(16) as _}
 			<div class="grid-cell"></div>
 		{/each}
 
-		<!-- Draggable ball using @gsap/svelte - only render when grid is ready -->
 		{#if isReady}
 			<div
 				bind:this={ballElement}
@@ -80,7 +81,64 @@
 				class="ball"
 			></div>
 		{/if}
-	</div>
+	</div> -->
+
+	<!-- <GSAPContainer layout="flex" width="100%" height="200px" gap="1rem">
+		{#each Array(16) as _}
+			<div class="grid-cell"></div>
+		{/each}
+		<GsapDraggable type="x" bounds={ballElement} inertia={true} snap={{ x: snapToCenter }}>
+			<div class="slider">→</div>
+		</GsapDraggable>
+	</GSAPContainer> -->
+	  <GSAPContainer 
+		layout="grid"
+		gridCols={4}
+		gridRows={4}
+		width="400px"
+		height="400px"
+		class="my-custom-grid"
+		bind:containerRef={gridContainer}
+	>
+		{#each Array(16) as _}
+			<div class="grid-cell"></div>
+		{/each}
+		
+		{#if isReady}
+			<div
+				bind:this={ballElement}
+				use:gsapDraggable={{
+					type: 'x,y',
+					bounds: gridContainer,
+					inertia: true,
+					snap: {
+						x: (value: number) => Math.round(value / 100) * 100,
+						y: (value: number) => Math.round(value / 100) * 100
+					},
+					onDragStart: function() {
+						if (ballElement) {
+							gsap.to(ballElement, {
+								scale: 1.1,
+								duration: 0.2,
+								ease: 'power2.out'
+							});
+						}
+					},
+					onDragEnd: function() {
+						if (ballElement) {
+							gsap.to(ballElement, {
+								scale: 1,
+								duration: 0.3,
+								ease: 'elastic.out(1, 0.5)'
+							});
+						}
+					}
+				}}
+				class="ball"
+			></div>
+		{/if}
+	</GSAPContainer>
+
 
 	<div class="demo-hint">
 		<svg class="hint-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,6 +220,15 @@
 		background: rgba(91, 80, 255, 0.08);
 	}
 
+	.draggable-wrapper {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		/* Removed pointer-events: none to allow dragging to work */
+	}
+
 	.ball {
 		position: absolute;
 		width: 100px;
@@ -171,6 +238,7 @@
 		border-radius: 50%;
 		background: linear-gradient(135deg, #5B50FF 0%, #8B7EFF 100%);
 		cursor: grab;
+		pointer-events: auto;
 		box-shadow:
 			0 10px 40px rgba(91, 80, 255, 0.6),
 			0 0 0 4px rgba(91, 80, 255, 0.2),

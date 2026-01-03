@@ -1,29 +1,41 @@
 <script lang="ts">
 	import { gsapDraggable } from '../actions';
 	import type { GSAPDraggableOptions, ElementType } from '../types';
+	import type { Snippet } from 'svelte';
 
-	export let element: ElementType = 'div';
-	export let type: GSAPDraggableOptions['type'] = 'x,y';
-	export let inertia: boolean = false;
-	export let bounds: GSAPDraggableOptions['bounds'] = undefined;
-	export let disabled: boolean = false;
+	interface Props {
+		element?: ElementType;
+		type?: GSAPDraggableOptions['type'];
+		inertia?: boolean;
+		bounds?: GSAPDraggableOptions['bounds'];
+		disabled?: boolean;
+		class?: string;
+		children?: Snippet;
+		[key: string]: unknown;
+	}
 
-	let className: string = '';
-	export { className as class };
-
-	// Capture all other props as draggable options
-	$$restProps;
+	const {
+		element = 'div',
+		type = 'x,y',
+		inertia = false,
+		bounds = undefined,
+		disabled = false,
+		class: className = '',
+		children,
+		...restProps
+	}: Props = $props();
 
 	const browser = typeof window !== 'undefined';
-	const draggableProps: GSAPDraggableOptions = browser ? {
+
+	const draggableProps: GSAPDraggableOptions = $derived(browser ? {
 		type,
 		inertia,
 		bounds,
 		disabled,
-		...$$restProps
-	} : { disabled: true };
+		...restProps
+	} : { disabled: true });
 </script>
 
 <svelte:element this={element} use:gsapDraggable={draggableProps} class={className}>
-	<slot />
+	{@render children?.()}
 </svelte:element>

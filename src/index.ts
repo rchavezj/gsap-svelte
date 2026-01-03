@@ -22,8 +22,15 @@ export {
   gsapDraggable,
 } from './actions';
 
-// Components are exported from dist/components/*.svelte
-// Import them directly: import { GsapAnimate } from '@gsap/svelte/components/GsapAnimate.svelte'
+// Components
+export {
+  GsapAnimate,
+  GsapFade,
+  GsapSlide,
+  GsapScale,
+  GsapDraggable,
+  GSAPContainer,
+} from './components';
 
 // Timeline utilities
 export {
@@ -41,6 +48,7 @@ export type {
   GSAPAnimateAction,
   GSAPDraggableOptions,
   GSAPDraggableAction,
+  GSAPContainerOptions,
   GSAPContext,
   UseGSAPContextOptions,
   GSAPTimelineOptions,

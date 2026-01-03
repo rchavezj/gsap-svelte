@@ -32,24 +32,6 @@ yarn add @gsap/svelte gsap
 
 ## Quick Start
 
-### Using Actions
-
-```svelte
-<script>
-  import { gsapAnimate } from '@gsap/svelte';
-</script>
-
-<div use:gsapAnimate={{
-  type: 'from',
-  opacity: 0,
-  y: 50,
-  duration: 1,
-  ease: 'power2.out'
-}}>
-  I fade and slide in!
-</div>
-```
-
 ### Using Components
 
 ```svelte

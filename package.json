@@ -12,7 +12,11 @@
       "svelte": "./dist/index.js",
       "import": "./dist/index.js"
     },
-    "./components/*": "./dist/components/*"
+    "./components/*": {
+      "svelte": "./dist/components/*",
+      "import": "./dist/components/*",
+      "default": "./dist/components/*"
+    }
   },
   "files": [
     "dist",
